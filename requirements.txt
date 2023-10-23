@@ -1,0 +1,3 @@
+flask
+pyppeteer
+capsolver_api
