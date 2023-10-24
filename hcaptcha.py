@@ -12,7 +12,7 @@ async def save_text_as_txt(file_path, content):
 
 async def main():
     url = 'https://servicos.receita.fazenda.gov.br/Servicos/CPF/ConsultaSituacao/ConsultaPublica.asp'
-    browser = await launch(headless=False)
+    browser = await launch(options={'args': ['--no-sandbox', '--disable-setuid-sandbox']})
     page = await browser.newPage()
     await page.goto(url)
     element = await page.querySelector('#hcaptcha')
@@ -47,8 +47,10 @@ async def main():
     btn = await page.querySelector('input[name="Enviar"]')
     await btn.click()
     await page.waitFor(5000)
-    titleSelector = "h1[class='documentFirstHeading']"
+    # titleSelector = "h1[class='documentFirstHeading']"
+    titleSelector = "h1"
     title = await page.evaluate('(selector) => document.querySelector(selector).textContent', titleSelector)
+    # print(await page.evaluate('(btn) => btn.getAttribute("class")', await page.querySelector('h1')))
     print(title)
     selector = "h4"
     text = await page.evaluate('(selector) => document.querySelector(selector).textContent', selector)
