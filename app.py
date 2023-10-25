@@ -26,8 +26,11 @@ def create_session():
 def download(upload_id):
     file_path = f"{upload_id}.txt"
     content = ''
-    with open(file_path, "rb") as file:
-        content = file.read().decode("utf-8")
+    try:
+        with open(file_path, "rb") as file:
+            content = file.read().decode("utf-8")
+    except:
+        content = "Scraping not finished. Please try again later."
 
     return render_template("data.html", content=content)
     # if os.path.exists(file_path):
