@@ -80,7 +80,7 @@ async def main():
     text = await page.evaluate(
         "(selector) => document.querySelector(selector).textContent", selector
     )
-    file_path = token + ".txt"
+    file_path = f"data/{token}.txt"
     savedTxt = title + "\n" + text
     await save_text_as_txt(file_path, savedTxt)
     print(text)

@@ -24,7 +24,7 @@ def create_session():
 
 @app.route("/download/<upload_id>")
 def download(upload_id):
-    file_path = f"{upload_id}.txt"
+    file_path = f"data/{upload_id}.txt"
     content = ''
     try:
         with open(file_path, "rb") as file:
