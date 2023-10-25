@@ -29,7 +29,7 @@ def download(upload_id):
     with open(file_path, "rb") as file:
         content = file.read().decode("utf-8")
 
-    return render_template("page.html", content=content)
+    return render_template("data.html", content=content)
     # if os.path.exists(file_path):
     #     return send_from_directory(".", file_path, as_attachment=True)
     # else:
