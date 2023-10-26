@@ -40,7 +40,7 @@ def download(upload_id):
 
     return render_template(
         "data.html",
-        content=content.content if content.content is not None else content.error,
+        content=content["content"] if content["content"] is not None else content["error"],
     )
     # if os.path.exists(file_path):
     #     return send_from_directory(".", file_path, as_attachment=True)
