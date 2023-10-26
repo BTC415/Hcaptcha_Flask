@@ -11,22 +11,24 @@ app.debug = True
 
 @app.route("/create-session", methods=["POST", "GET"])
 def create_session():
-    cpf = request.args.get("cpf","06780432627")
-    data_nascimento = request.args.get("data_nascimento","20/05/1983")
+    cpf = request.args.get("cpf", "06780432627")
+    data_nascimento = request.args.get("data_nascimento", "20/05/1983")
     token = str(uuid.uuid4())
 
     process = subprocess.Popen(
         ["python3", "hcaptcha.py", token, cpf, data_nascimento],
         stdout=subprocess.PIPE,
     )
-    return render_template("page.html", token=token)
+    return render_template(
+        "page.html", token=token, cpf=cpf, data_nascimento=data_nascimento
+    )
     return jsonify({"token": token})
 
 
 @app.route("/download/<upload_id>")
 def download(upload_id):
     file_path = f"data/{upload_id}.json"
-    content = ''
+    content = ""
     try:
         with open(file_path, "r") as f:
             content = json.load(f)
@@ -44,7 +46,6 @@ def download(upload_id):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
-
 
 
 # with open("./users/" + name + ".json", "r", encoding="utf-8-sig") as f:

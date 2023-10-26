@@ -7,9 +7,9 @@
     <title>View Page</title>
     <style>
         .button {
-            width: 180px;
+            width: 250px;
             height: 50px;
-            display: block;
+            display: flex;
             background-color: rgb(150, 97, 0);
             text-decoration: none;
             font-size: 20px;
@@ -22,8 +22,10 @@
             font-family: Arial, Helvetica, sans-serif;
             box-shadow: #444 10px 5px 10px;
             transition: all ease-in-out 500ms;
+            text-align: center
         }
-        .button:hover{
+
+        .button:hover {
             background-color: rgb(201, 130, 0);
         }
     </style>
@@ -33,9 +35,15 @@
     <div
         style="max-width: 800px; margin:auto auto; height:800px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <div
-            style="width: 100%; height: 200px; border: 1px solid #ccc; border-radius: 10px; background-color: #fff;display: flex; flex-direction: column; justify-content: center; align-items: center;">
-            <p style="font-size: 24px;">token:<b>{{ token }}</b></p>
-            <a href="http://207.244.253.161/download/{{ token }}" class="button">Get content file</a>
+            style="width: 100%; height: 300px; border: 1px solid #ccc; border-radius: 10px; background-color: #fff;display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <div style="width: 100%; text-align: center;">
+                <p style="font-size: 24px;">cpf=<b>{{ cpf }}</b>, data_nascimento=<b>{{ data_nascimento }}</b></p>
+                <p style="font-size: 24px;">token:<b>{{ token }}</b></p>
+            </div>
+            <div style="display:flex; flex-direction: column; gap:20px;">
+                <a href="http://207.244.253.161/download/{{ token }}" class="button">Get content file</a>
+                <a href="javascript:window.location.reload();" class="button">Generate new token</a>
+            </div>
         </div>
     </div>
 </body>
