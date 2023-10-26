@@ -98,11 +98,15 @@ async def main():
             print(text)
             return
         except Exception as e:
-            await save_text_as_txt(
-                {"type": "error", "data": f"{str(e)} Try again {count} time(s)."}
-            )
             count = count + 1
-            if count > limit_count:
+            if count < limit_count:                
+                await save_text_as_txt(
+                    {"type": "error", "data": f"{str(e)} Try again {count} time(s)."}
+                )
+            else:                
+                await save_text_as_txt(
+                    {"type": "error", "data": f"{str(e)} Failed!"}
+                )
                 return
 
 
