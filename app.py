@@ -28,14 +28,14 @@ def create_session():
 @app.route("/download/<upload_id>")
 def download(upload_id):
     file_path = f"data/{upload_id}.json"
-    content = ""
+    content = {"error": "Scraping not finished. Please try again later."}
     try:
         with open(file_path, "r") as f:
             content = json.load(f)
         # with open(file_path, "rb") as file:
         #     content = file.read().decode("utf-8")
     except:
-        content = "Scraping not finished. Please try again later."
+        pass
     print(content)
 
     return render_template(
