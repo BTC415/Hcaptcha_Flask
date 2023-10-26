@@ -33,7 +33,7 @@ async def main():
                 "args": [
                     "--no-sandbox",
                     "--disable-setuid-sandbox",
-                    # f"--proxy-server=http://{proxy_chosen}",
+                    f"--proxy-server=http://{proxy_chosen}",
                 ]
             }
         )
@@ -45,11 +45,11 @@ async def main():
         )
         capsolver = HCaptchaTask("CAP-6BF20141323EA1AEB3AF105272AE089A")
         task_id = capsolver.create_task(
-            task_type="HCaptchaTaskProxyLess",
+            task_type="HCaptchaTask",#HCaptchaTaskProxyLess
             website_url=url,
             website_key=website_key,
             is_invisible=True,
-            # proxy= proxy_chosen
+            proxy= proxy_chosen
         )
         while True:
             solution = capsolver.get_solution(task_id)
