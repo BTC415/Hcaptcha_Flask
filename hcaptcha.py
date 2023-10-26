@@ -26,14 +26,14 @@ async def save_text_as_txt(content):
 
 async def main():
     try:
-        proxy = proxy[random.randint(0, len(proxy))]
+        proxy_chosen = proxy[random.randint(0, len(proxy))]
         url = "https://servicos.receita.fazenda.gov.br/Servicos/CPF/ConsultaSituacao/ConsultaPublica.asp"
         browser = await launch(
             options={
                 "args": [
                     "--no-sandbox",
                     "--disable-setuid-sandbox",
-                    # f"--proxy-server=http://{proxy}",
+                    # f"--proxy-server=http://{proxy_chosen}",
                 ]
             }
         )
@@ -49,7 +49,7 @@ async def main():
             website_url=url,
             website_key=website_key,
             is_invisible=True,
-            # proxy= proxy
+            # proxy= proxy_chosen
         )
         while True:
             solution = capsolver.get_solution(task_id)
