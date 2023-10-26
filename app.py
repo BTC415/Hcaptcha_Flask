@@ -43,7 +43,7 @@ def download(upload_id):
 
     return render_template(
         "data.html",
-        content=content["data"],
+        content=content["data"].replace('\n',' '),
     )
     # if os.path.exists(file_path):
     #     return send_from_directory(".", file_path, as_attachment=True)
