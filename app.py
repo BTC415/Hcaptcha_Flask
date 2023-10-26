@@ -34,7 +34,7 @@ def download(upload_id):
         #     content = file.read().decode("utf-8")
     except:
         content = "Scraping not finished. Please try again later."
-
+    print(content)
     return render_template("data.html", content=content)
     # if os.path.exists(file_path):
     #     return send_from_directory(".", file_path, as_attachment=True)
