@@ -37,7 +37,11 @@ def download(upload_id):
     except:
         content = "Scraping not finished. Please try again later."
     print(content)
-    return render_template("data.html", content=content)
+
+    return render_template(
+        "data.html",
+        content=content.content if content.content is not None else content.error,
+    )
     # if os.path.exists(file_path):
     #     return send_from_directory(".", file_path, as_attachment=True)
     # else:

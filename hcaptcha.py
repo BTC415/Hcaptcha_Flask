@@ -78,21 +78,21 @@ async def main():
         await btn.click()
         await page.waitFor(5000)
         # titleSelector = "h1[class='documentFirstHeading']"
-        titleSelector = "h1"
-        title = await page.evaluate(
-            "(selector) => document.querySelector(selector).textContent", titleSelector
-        )
-        # print(await page.evaluate('(btn) => btn.getAttribute("class")', await page.querySelector('h1')))
-        print(title)
-        selector = "h4"
+        # titleSelector = "h1"
+        # title = await page.evaluate(
+        #     "(selector) => document.querySelector(selector).textContent", titleSelector
+        # )
+        # # print(await page.evaluate('(btn) => btn.getAttribute("class")', await page.querySelector('h1')))
+        # print(title)
+        selector = "#main"
         text = await page.evaluate(
             "(selector) => document.querySelector(selector).innerHTML", selector
         )
-        savedTxt = title + "\n" + text
+        savedTxt = text
         await save_text_as_txt({"content": savedTxt})
         print(text)
     except Exception as e:
-        await save_text_as_txt({"Error": str(e)})
+        await save_text_as_txt({"error": str(e)})
 
 
 if __name__ == "__main__":
