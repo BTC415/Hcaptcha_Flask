@@ -1,6 +1,7 @@
 import subprocess
 import uuid
 import os
+import json
 
 from flask import Flask, jsonify, send_from_directory, render_template, request
 
@@ -24,11 +25,13 @@ def create_session():
 
 @app.route("/download/<upload_id>")
 def download(upload_id):
-    file_path = f"data/{upload_id}.txt"
+    file_path = f"data/{upload_id}.json"
     content = ''
     try:
-        with open(file_path, "rb") as file:
-            content = file.read().decode("utf-8")
+        with open(file_path, "r") as f:
+            content = json.load(f)
+        # with open(file_path, "rb") as file:
+        #     content = file.read().decode("utf-8")
     except:
         content = "Scraping not finished. Please try again later."
 
@@ -41,3 +44,8 @@ def download(upload_id):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
+
+
+
+# with open("./users/" + name + ".json", "r", encoding="utf-8-sig") as f:
+#     profile = json.load(f)
