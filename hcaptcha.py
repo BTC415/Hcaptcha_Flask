@@ -89,7 +89,7 @@ async def main():
             # )
             # # print(await page.evaluate('(btn) => btn.getAttribute("class")', await page.querySelector('h1')))
             # print(title)
-            selector = "h1[id='main']"
+            selector = "div[id='main']"
             text = await page.evaluate(
                 "(selector) => document.querySelector(selector).innerHTML", selector
             )
