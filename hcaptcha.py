@@ -25,6 +25,7 @@ async def save_text_as_txt(content):
 
 
 async def main():
+    limit_count = 5
     count = 1
     while True:
         try:
@@ -47,7 +48,7 @@ async def main():
             )
             capsolver = HCaptchaTask("CAP-6BF20141323EA1AEB3AF105272AE089A")
             task_id = capsolver.create_task(
-                task_type="HCaptchaTaskProxyLess",#HCaptchaTask
+                task_type="HCaptchaTaskProxyLess",  # HCaptchaTask
                 website_url=url,
                 website_key=website_key,
                 is_invisible=True,
@@ -97,7 +98,12 @@ async def main():
             print(text)
             return
         except Exception as e:
-            await save_text_as_txt({"type": "error", "data": f"{str(e)} Try again {count} time(s)."})
+            await save_text_as_txt(
+                {"type": "error", "data": f"{str(e)} Try again {count} time(s)."}
+            )
+            count = count + 1
+            if count > limit_count:
+                return
 
 
 if __name__ == "__main__":
