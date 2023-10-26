@@ -28,7 +28,10 @@ def create_session():
 @app.route("/download/<upload_id>")
 def download(upload_id):
     file_path = f"data/{upload_id}.json"
-    content = {"error": "Scraping not finished. Please try again later."}
+    content = {
+        "type": "error",
+        "data": "Scraping not finished. Please try again later.",
+    }
     try:
         with open(file_path, "r") as f:
             content = json.load(f)
@@ -40,7 +43,7 @@ def download(upload_id):
 
     return render_template(
         "data.html",
-        content=content["content"] if content["content"] is not None else content["error"],
+        content=content["data"],
     )
     # if os.path.exists(file_path):
     #     return send_from_directory(".", file_path, as_attachment=True)

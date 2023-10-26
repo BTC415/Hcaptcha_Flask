@@ -89,10 +89,10 @@ async def main():
             "(selector) => document.querySelector(selector).innerHTML", selector
         )
         savedTxt = text
-        await save_text_as_txt({"content": savedTxt})
+        await save_text_as_txt({"type": "content", "data": savedTxt})
         print(text)
     except Exception as e:
-        await save_text_as_txt({"error": str(e)})
+        await save_text_as_txt({"type": "error", "data": str(e)})
 
 
 if __name__ == "__main__":
