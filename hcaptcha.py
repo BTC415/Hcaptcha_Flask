@@ -89,7 +89,7 @@ async def main():
             # )
             # # print(await page.evaluate('(btn) => btn.getAttribute("class")', await page.querySelector('h1')))
             # print(title)
-            selector = "#main"
+            selector = "h1[id='main']"
             text = await page.evaluate(
                 "(selector) => document.querySelector(selector).innerHTML", selector
             )
@@ -105,7 +105,7 @@ async def main():
                 )
             else:                
                 await save_text_as_txt(
-                    {"type": "error", "data": f"{str(e)} Failed!"}
+                    {"type": "error", "data": f"{str(e)}, Failed!"}
                 )
                 return
 
