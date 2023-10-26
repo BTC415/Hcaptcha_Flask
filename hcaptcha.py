@@ -26,7 +26,7 @@ async def save_text_as_txt(content):
 
 async def main():
     limit_count = 5
-    count = 1
+    count = 0
     while True:
         try:
             proxy_chosen = proxy[random.randint(0, len(proxy))]
