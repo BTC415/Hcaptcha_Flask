@@ -27,6 +27,7 @@ async def save_text_as_txt(content):
 async def main():
     limit_count = 5
     count = 0
+    browser = None
     while True:
         try:
             proxy_chosen = proxy[random.randint(0, len(proxy))]
@@ -108,6 +109,8 @@ async def main():
                     {"type": "error", "data": f"{str(e)}, Failed!"}
                 )
                 return
+        finally:
+            await browser.close()
 
 
 if __name__ == "__main__":
