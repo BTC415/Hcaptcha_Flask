@@ -25,6 +25,19 @@ def create_session():
     return jsonify({"token": token})
 
 
+@app.route("/create-session-v2", methods=["POST", "GET"])
+def create_session_v2():
+    cnpj = request.args.get("CNPJ", "10753249000121")
+    token = str(uuid.uuid4())
+
+    process = subprocess.Popen(
+        ["python3", "hcaptcha_v2.py", token, cnpj],
+        stdout=subprocess.PIPE,
+    )
+    return render_template("page_v2.html", token=token, cnpj=cnpj)
+    return jsonify({"token": token})
+
+
 @app.route("/download/<upload_id>")
 def download(upload_id):
     file_path = f"data/{upload_id}.json"
@@ -43,7 +56,7 @@ def download(upload_id):
 
     return render_template(
         "data.html",
-        content=content["data"].replace('\n',' '),
+        content=content["data"].replace("\n", " "),
     )
     # if os.path.exists(file_path):
     #     return send_from_directory(".", file_path, as_attachment=True)
