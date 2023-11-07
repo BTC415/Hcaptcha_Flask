@@ -12,7 +12,7 @@ cnpj = sys.argv[2]
 file_path = f"data/{token}.json"
 
 EXTENSION_ID = "lfpfbgeoodeejmjdlfjbfjkemjlblijg"
-EXTENSION_PATH = "LFPFBGEOODEEJMJDLFJBFJKEMJLBLIJG_1_3_1_0"
+EXTENSION_PATH = "./LFPFBGEOODEEJMJDLFJBFJKEMJLBLIJG_1_3_1_0"
 
 
 async def save_text_as_txt(content):
