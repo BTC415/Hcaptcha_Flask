@@ -2,3 +2,8 @@ screenshot.png
 z*.html
 data/*.json
 nohup.out
+
+.gitignore
+LFPFBGEOODEEJMJDLFJBFJKEMJLBLIJG_1_3_1_0/*
+!LFPFBGEOODEEJMJDLFJBFJKEMJLBLIJG_1_3_1_0/.gitkeep
+*.crx

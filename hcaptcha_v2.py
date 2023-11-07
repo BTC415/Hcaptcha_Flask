@@ -11,6 +11,9 @@ token = sys.argv[1]
 cnpj = sys.argv[2]
 file_path = f"data/{token}.json"
 
+EXTENSION_ID = "lfpfbgeoodeejmjdlfjbfjkemjlblijg"
+EXTENSION_PATH = "LFPFBGEOODEEJMJDLFJBFJKEMJLBLIJG_1_3_1_0"
+
 
 async def save_text_as_txt(content):
     # os.makedirs(os.path.dirname("save_datas"), exist_ok=True)
@@ -33,16 +36,20 @@ async def main():
             url = "https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp"
             browser = await launch(
                 options={
+                    "headless": False,#True
+                    "ignoreDefaultArgs": "--disable extensions",
                     "args": [
-                        "--no-sandbox",
-                        "--disable-setuid-sandbox",
-                        f"--proxy-server=http://{proxy_chosen}",
-                    ]
+                        # "--no-sandbox",
+                        # "--disable-setuid-sandbox",
+                        # f"--proxy-server=http://{proxy_chosen}",
+                        f"--disable-extensions-except={EXTENSION_ID}",
+                        f"--load-extension={EXTENSION_PATH}",
+                    ],
                 }
             )
             page = await browser.newPage()
             await page.goto(url)
-            element = await page.querySelector('.h-captcha[data-sitekey]')
+            element = await page.querySelector(".h-captcha[data-sitekey]")
             website_key = await page.evaluate(
                 '(element) => element.getAttribute("data-sitekey")', element
             )
@@ -60,12 +67,12 @@ async def main():
                     captcha_key = solution["gRecaptchaResponse"]
                     break
                 await asyncio.sleep(2)
-            txt_cnpj_element = await page.querySelector('input#cnpj')
+            txt_cnpj_element = await page.querySelector("input#cnpj")
             if txt_cnpj_element:
                 await txt_cnpj_element.type(cnpj)
             else:
                 print("txt_cnpj element not found!")
-                
+
             await page.waitForSelector("iframe")
             await page.evaluate(
                 "(element, captchaKey) => element.value = captchaKey",
@@ -83,7 +90,7 @@ async def main():
             # )
             # # print(await page.evaluate('(btn) => btn.getAttribute("class")', await page.querySelector('h1')))
             # print(title)
-            selector = "#app"#div[id='main']
+            selector = "#app"  # div[id='main']
             text = await page.evaluate(
                 "(selector) => document.querySelector(selector).innerHTML", selector
             )
@@ -93,14 +100,12 @@ async def main():
             return
         except Exception as e:
             count = count + 1
-            if count < limit_count:                
+            if count < limit_count:
                 await save_text_as_txt(
                     {"type": "error", "data": f"{str(e)} Try again {count} time(s)."}
                 )
-            else:                
-                await save_text_as_txt(
-                    {"type": "error", "data": f"{str(e)}, Failed!"}
-                )
+            else:
+                await save_text_as_txt({"type": "error", "data": f"{str(e)}, Failed!"})
                 return
         finally:
             await browser.close()
