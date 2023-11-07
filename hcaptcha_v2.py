@@ -4,15 +4,17 @@ from capsolver_api import HCaptchaTask
 from proxy import proxy
 import random
 import json
-
+import os
 import sys
 
 token = sys.argv[1]
 cnpj = sys.argv[2]
 file_path = f"data/{token}.json"
 
+current_directory = os.getcwd()
+
 EXTENSION_ID = "lfpfbgeoodeejmjdlfjbfjkemjlblijg"
-EXTENSION_PATH = "./LFPFBGEOODEEJMJDLFJBFJKEMJLBLIJG_1_3_1_0"
+EXTENSION_PATH = f"{current_directory}/LFPFBGEOODEEJMJDLFJBFJKEMJLBLIJG_1_3_1_0"
 
 
 async def save_text_as_txt(content):
